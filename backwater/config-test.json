@@ -1,0 +1,64 @@
+{
+  "Exceptions": {
+    "description": "Display the errors from Session in the Errors frame."
+  },
+  "Results": {
+    "description": "Display the results from Session in the results frame."
+  },
+  "Session": {
+    "Default": {
+      "exclude_directories": [],
+      "exclude_files": [],
+      "implement_excludes": true,
+      "mirror": true,
+      "run_queue": false,
+      "source": "",
+      "subroutine": {
+        "Backup": false,
+        "Compare": true,
+        "Synchronize": false,
+        "Template": false
+      },
+      "target": ""
+    },
+    "Test": {
+      "exclude_directories": [
+        ".git"
+      ],
+      "exclude_files": [
+        ".class"
+      ],
+      "implement_excludes": true,
+      "mirror": true,
+      "run_queue": false,
+      "source": "C:\\Users\\greg9\\Documents\\Python\\Test",
+      "subroutine": {
+        "Backup": true,
+        "Compare": false,
+        "Synchronize": false,
+        "Template": false
+      },
+      "target": "C:\\Users\\greg9\\Documents\\Python\\Test Destination"
+    }
+  },
+  "Settings": {
+    "description": "Store user input for the Settings frame.",
+    "q_run_auto": false,
+    "q_run_time": "",
+    "report_verbose": true,
+    "save_on_run": true,
+    "selected_language": "en"
+  },
+  "Template": {
+    "description": "Framework upon which to build other components."
+  },
+  "description": "B3 version 20240401",
+  "languages": {
+    "de": "Deutsch",
+    "en": "English",
+    "es": "Espa\u00f1ol",
+    "fr": "Fran\u00e7ais",
+    "nl": "Nederlands"
+  },
+  "selected_session": "Test"
+}

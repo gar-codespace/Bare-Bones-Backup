@@ -1,0 +1,38 @@
+ToDo:
+    For the GUI, do not allow simultaneous run sessions.
+    For the GUI add ability to delete a profile.
+    For the GUI add timer to automatically run Backup.
+    The third-party regex module, which has an API compatible with the standard library re module, but offers additional functionality and a more thorough Unicode support.
+    https://pypi.org/project/regex/
+
+    Make the progress bar generator.
+    Add all the component checks.
+    Expand Session.check_config_items
+    Add errors to generic_file_remove.
+    Test config file subroutine logic.
+    Make sure it works.
+    Move "selected_session": "Default" in config file to session setup.
+
+Done:
+    MIT License
+    Add checks to directories.
+    Create root dir in backup path.
+    Implement directory excludes.
+    Implement file excludes.
+    Backup into root path instead of Backup path.
+    Test unicode with dirs and files.
+    Implement 'implement_excludes' toggle.
+    Add errors list to output.
+    Along with orphan files, check that exclude files and dirs get deleted.
+    Add i18n.
+    Add l10n date.
+    Replace config file if broken.
+    Add a template component for future additions.
+    Abstract component.Model,check_config_items()
+    Verify generic_copy_file copied the file.
+    Verify generic_make_directory made the directory.
+    Add errors to generic_directory_remove.
+    Backup, Compare and Synchronize moved to Subroutines.py
+    Count errors and no action taken.
+    Change delete_obsolete to mirror.
+    Abstracted Backup, Compare, and Sychronize into Subroutines.

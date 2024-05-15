@@ -1,0 +1,12 @@
+# for each language, be sure to add a xx.txt file where xx is the abbreviation for that country.
+# xx.txt should contain the name of the language in that language.
+
+# The modules that are to be translated.
+# The CLI commands:
+# xgettext -i --default-domain=B3 --output=.\locales\filed.pot --files-from=.\locales\i18n_files.txt --language=Python
+# msgfmt -o locales/en/LC_MESSAGES/filed.mo locales/en/LC_MESSAGES/filed.po
+# msgfmt -o locales/fr/LC_MESSAGES/filed.mo locales/fr/LC_MESSAGES/filed.po
+# msgfmt -o locales/de/LC_MESSAGES/filed.mo locales/de/LC_MESSAGES/filed.po
+# msgfmt -o locales/es/LC_MESSAGES/filed.mo locales/es/LC_MESSAGES/filed.po
+
+Controller.py
