@@ -34,8 +34,8 @@
       "run_queue": false,
       "source": "C:\\Users\\greg9\\Documents\\Python\\Test",
       "subroutine": {
-        "Backup": false,
-        "Compare": true,
+        "Backup": true,
+        "Compare": false,
         "Template": false
       },
       "target": "C:\\Users\\greg9\\Documents\\Python\\Test Destination"

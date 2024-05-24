@@ -77,7 +77,7 @@ def check_languages() -> None:
 
 def get_component_name(file_name: str) -> str:
     """
-    The prefered method to get a components name.
+    The prefered method to get a components' name.
     """
 
     return OS_PATH.basename(OS_PATH.dirname(file_name))
@@ -174,92 +174,6 @@ def generic_get_files(dir: str) -> list:
         result.append(file)
 
     return result
-
-
-def generic_make_directory(target_path: str) -> int:
-    """
-    The prefered mathod to make a directory.
-    """
-
-    result = 1
-    try:
-        OS.mkdir(target_path, mode=0o777, dir_fd=None)
-    except FileExistsError as e:
-        result = 0
-
-    return result
-
-
-def generic_copy_file(source_path: str, target_path: str) -> int:
-    """
-    The prefered method to copy files.
-    """
-
-    result = 1
-    SHUTIL.copy2(source_path, target_path, follow_symlinks=True)
-
-    a_date = OS_PATH.getmtime(source_path)
-    b_date = OS_PATH.getmtime(target_path)
-
-    if a_date != b_date:
-        result = 0
-
-    return result
-
-
-def generic_file_remove(target_path: str) -> int:
-    """
-    The prefered method to remove a file.
-    """
-
-    result = 1
-    try:
-        PATHLIB.Path(target_path).unlink()
-    except FileNotFoundError as e:
-        # TODO add to errors list.
-        result = 0
-    except PermissionError as e:
-        # TODO add to errors list
-        # Source files marked as read only.
-        result = 0
-
-    return result
-
-
-def generic_directory_remove(target_path: str) -> str:
-    """
-    The prefered method to delete a directory.
-    Only removes empty directories.
-    """
-
-    error = ""
-    result = 1
-
-    try:
-        OS.rmdir(target_path, dir_fd=None)
-    except FileNotFoundError as e:
-        error = f"Directory not removed: {e}"
-        result = 0
-    except OSError as e:
-        error = f"Directory not removed: {e}"
-        result = 0
-
-    return result
-
-
-def generic_tally_items(path: str) -> int:
-    """
-    Counts the number of directories and files in a path.
-    """
-
-    directory_count = 0
-    file_count = 0
-
-    for root, directories, files in OS.walk(path):
-        directory_count += len(directories)
-        file_count += len(files)
-
-    return directory_count, file_count
 
 
 def generic_read_report(filePath: str) -> str:

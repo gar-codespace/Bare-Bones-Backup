@@ -3,7 +3,105 @@ import Entities
 SCRIPT_NAME = f"B3.{__name__}"
 SCRIPT_REV = 20240401
 
+
 """check_config_items is moved here because Model is getting big."""
+
+
+def tally_items(path: str) -> int:
+    """
+    Counts the number of directories and files in a path.
+    """
+
+    directory_count = 0
+    file_count = 0
+
+    for root, directories, files in Entities.OS.walk(path):
+        directory_count += len(directories)
+        file_count += len(files)
+
+    return directory_count, file_count
+
+
+def make_directory(target_path: str) -> int:
+    """
+    The prefered mathod to make a directory.
+    """
+
+    result = 1
+    try:
+        Entities.OS.mkdir(target_path, mode=0o777, dir_fd=None)
+    except FileExistsError as e:
+        result = 0
+
+    return result
+
+
+def copy_file(source_path: str, target_path: str) -> int:
+    """
+    The prefered method to copy files.
+    """
+
+    result = 1
+    Entities.SHUTIL.copy2(source_path, target_path, follow_symlinks=True)
+
+    a_date = Entities.OS_PATH.getmtime(source_path)
+    b_date = Entities.OS_PATH.getmtime(target_path)
+
+    if a_date != b_date:
+        result = 0
+
+    return result
+
+
+def file_remove(target_path: str) -> int:
+    """
+    The prefered method to remove a file.
+    """
+
+    result = 1
+    try:
+        Entities.PATHLIB.Path(target_path).unlink()
+    except FileNotFoundError as e:
+        # TODO add to errors list.
+        result = 0
+    except PermissionError as e:
+        # TODO add to errors list
+        # Source files marked as read only.
+        result = 0
+
+    return result
+
+
+def directory_remove(target_path: str) -> str:
+    """
+    The prefered method to delete a directory.
+    Only removes empty directories.
+    """
+
+    error = ""
+    result = 1
+
+    try:
+        Entities.OS.rmdir(target_path, dir_fd=None)
+    except FileNotFoundError as e:
+        error = f"Directory not removed: {e}"
+        result = 0
+    except OSError as e:
+        error = f"Directory not removed: {e}"
+        result = 0
+
+    return result
+
+
+def get_target_path() -> str:
+
+    profile = get_profile()
+
+    target = profile["target"]
+    root = Entities.OS_PATH.basename(Entities.OS_PATH.normpath(profile["source"]))
+    target_path = Entities.OS_PATH.join(target, root)
+
+    return target_path
 
 
 def validate_directories() -> None:
@@ -23,8 +121,6 @@ def validate_directories() -> None:
     if not Entities.OS_PATH.isdir(test_directory):
         error = f"Not a valid target directory"
         Entities.EXCEPTIONS.append(f"{error}:\n   {test_directory}")
-
-    print(Entities.EXCEPTIONS)
 
 
 def compile_exclude_directories(exclude_directories: list) -> object:
@@ -89,33 +185,3 @@ def get_selected_session_name() -> str:
     selected_session = config_file["selected_session"]
 
     return selected_session
-
-
-# def check_config_items() -> None:
-#     """
-#     Check that the config file items for this component are OK.
-#     """
-#     # TODO Expand this
-
-#     base_name = Entities.get_component_name(__file__)
-#     Entities.check_config_item(base_name)
-
-
-# def check_subroutines() -> None:
-#     """
-#     Check that each profile has all the subroutines.
-#     """
-
-#     files = Entities.generic_get_files("components\\Session\\subroutines")
-#     subroutines = [file.replace(".py", "") for file in files]
-
-#     config_file = Entities.load_json(Entities.generic_read_report("config.json"))
-#     for s_name, s_settings in config_file["Session"].items():
-#         names = []
-#         for name, state in s_settings["subroutine"].items():
-#             names.append(name)
-#         for sub in subroutines:
-#             if sub not in names:
-#                 config_file["Session"][s_name]["subroutine"][sub] = False
-
-#     Entities.generic_write_report("config.json", Entities.dump_json(config_file))

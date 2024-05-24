@@ -10,3 +10,18 @@
 # msgfmt -o locales/es/LC_MESSAGES/filed.mo locales/es/LC_MESSAGES/filed.po
 
 Controller.py
+View.py
+
+.\components\Exceptions\Controller.py
+.\components\Exceptions\View.py
+
+.\components\Results\Controller.py
+.\components\Results\View.py
+
+.\components\Session\Controller.py
+.\components\Session\View.py
+.\components\Session\subroutines\Backup.py
+.\components\Session\subroutines\Compare.py
+
+.\components\Settings\Controller.py
+.\components\Settings\View.py

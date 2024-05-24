@@ -38,13 +38,13 @@ class GUI:
             subroutine = Entities.IM(
                 f"components.Session.subroutines.{subroutine_name}"
             )
-            component_model = subroutine.Model()
-            component_view = subroutine.View()
+            subroutine_controller = subroutine.Controller()
+            subroutine_view = subroutine.View()
 
-            component_model.run()
-            subroutine_results = component_model.get_subroutine_results()
-            formatted_results = component_view.formatted_results(subroutine_results)
-            exceptions = component_model.get_exceptions()
+            subroutine_controller.run()
+            subroutine_results = subroutine_controller.get_subroutine_results()
+            formatted_results = subroutine_view.formatted_results(subroutine_results)
+            exceptions = subroutine_controller.get_exceptions()
 
         except ModuleNotFoundError:  # no subroutine is selected.
             formatted_results = []
@@ -82,23 +82,3 @@ class GUI:
         When the user presses the 'Confirm' button.
         Delets the current profile.
         """
-
-
-# class Run_Subroutine:
-
-#     def __init__(self) -> None:
-
-#         self.session = Model.Model()
-#         self.session.run()
-
-#     def get_results(self) -> str:
-
-#         results = self.session.get_results()
-
-#         return results
-
-#     def get_exceptions(self) -> str:
-
-#         exceptions = self.session.get_exceptions()
-
-#         return exceptions
