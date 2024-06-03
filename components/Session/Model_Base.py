@@ -19,7 +19,7 @@ class Subroutine_Base:
     SUBROUTINE = Model_Entities.get_subroutine_name()
 
     SOURCE_PATH = PROFILE["source"]
-    TARGET_PATH = Model_Entities.get_target_path()
+    TARGET_PATH = PROFILE["target"]
 
     SOURCE_DIRECTORY_COUNT: int
     SOURCE_FILE_COUNT: int
@@ -71,9 +71,6 @@ class Subroutine_Base:
 
         self.initialize()
 
-        self.STATUS = f"{_("Validate Directories")}"
-        Model_Entities.validate_directories()
-
         self.STATUS = f"{_("Poll Source")}"
         self.poll_source()
 
@@ -83,8 +80,6 @@ class Subroutine_Base:
     def initialize(self) -> None:
 
         self.EXCEPTIONS = []
-
-        # self.subroutine_int = Model_Entities.get_subroutine_int()
 
         self.implement_excludes = self.PROFILE["implement_excludes"]
         exd = self.PROFILE["exclude_directories"]
@@ -108,10 +103,10 @@ class Subroutine_Base:
         """
 
         result = Model_Entities.make_directory(self.TARGET_PATH)
-        if result:
+        if result == True:
             self.TARGET_NEW_DIRECTORY_COUNT += 1
         else:
-            # TODO add error here
+            self.EXCEPTIONS.append(f"Target exists: {self.TARGET_PATH}")
             pass
 
     def correlate_directories(self, A, B) -> None:
@@ -293,24 +288,6 @@ class Subroutine_Base:
                     x_rel = Entities.OS_PATH.relpath(b_path, B)
                     self.EXCEPTIONS.append(f"Not removed: {x_rel}")
 
-                # if self.implement_excludes:
-                #     x = b_path.split("\\")
-                #     exd = [hit for hit in x if self.regex_directories.match(hit)]
-                #     if [hit for hit in x if self.regex_directories.match(hit)]:
-                #         success = Model_Entities.directory_remove(b_path)
-                #         if success:
-                #             self.obsolete += 1
-                #         else:
-                #             x_rel = Entities.OS_PATH.relpath(b_path, B)
-                #             self.exceptions.append(f"Not removed: {x_rel}")
-
-                # if not Entities.OS_PATH.isdir(a_path):
-                #     success = Model_Entities.directory_remove(b_path)
-                #     if success:
-                #         self.obsolete += 1
-                #     else:
-                #         x_rel = Entities.OS_PATH.relpath(b_path, B)
-                #         self.exceptions.append(f"Not removed: {x_rel}")
 
     def get_run_results(self) -> dict:
 

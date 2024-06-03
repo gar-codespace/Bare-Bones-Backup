@@ -7,27 +7,6 @@ SCRIPT_REV = 20240401
 """check_config_items is moved here because Model is getting big."""
 
 
-# def get_subroutine_int() -> int:
-#     """
-#     Convert the matrix of subroutine bools into an integer.
-#     """
-
-#     subroutine_str = ""
-#     subroutine_int: int
-
-#     config_file = Entities.load_json(Entities.generic_read_report("config.json"))
-#     profile = config_file["selected_session"]
-#     subroutines = config_file["Session"][profile]["subroutine"]
-
-#     for k, v in subroutines.items():
-#         subroutine_str += str(int(v))
-
-#     # subroutine_matrix = [int(v) for k, v in subroutines.items()]
-#     subroutine_int = int(subroutine_str, 2)
-
-#     return subroutine_int
-
-
 def tally_items(path: str) -> int:
     """
     Counts the number of directories and files in a path.
@@ -51,6 +30,8 @@ def make_directory(target_path: str) -> int:
     result = 1
     try:
         Entities.OS.mkdir(target_path, mode=0o777, dir_fd=None)
+    except FileNotFoundError as e:
+        result = 0
     except FileExistsError as e:
         result = 0
 
@@ -114,36 +95,6 @@ def directory_remove(target_path: str) -> str:
     return result
 
 
-def get_target_path() -> str:
-
-    profile = get_session()
-
-    target = profile["target"]
-    root = Entities.OS_PATH.basename(Entities.OS_PATH.normpath(profile["source"]))
-    target_path = Entities.OS_PATH.join(target, root)
-
-    return target_path
-
-
-def validate_directories() -> None:
-    """
-    Checks that the source and target directories are valid paths.
-    """
-
-    session_name = get_selected_session_name()
-    config_file = Entities.load_json(Entities.generic_read_report("config.json"))
-
-    test_directory = config_file["Session"][session_name]["source"]
-    if not Entities.OS_PATH.isdir(test_directory):
-        error = f"Not a valid source directory"
-        Entities.EXCEPTIONS.append(f"{error}:\n   {test_directory}")
-
-    test_directory = config_file["Session"][session_name]["target"]
-    if not Entities.OS_PATH.isdir(test_directory):
-        error = f"Not a valid target directory"
-        Entities.EXCEPTIONS.append(f"{error}:\n   {test_directory}")
-
-
 def compile_exclude_directories(exclude_directories: list) -> object:
     """
     For the app, the user will type in a comma or space seperated list of excludes.
@@ -205,3 +156,20 @@ def get_selected_session_name() -> str:
     selected_session = config_file["selected_session"]
 
     return selected_session
+
+
+def check_path(path: str) -> bool:
+    """
+    Used to check the source and target paths of the selected session.
+    """
+
+    result = True
+
+    session_name = get_selected_session_name()
+    config_file = Entities.load_json(Entities.generic_read_report("config.json"))
+    test_directory = config_file["Session"][session_name][path]
+
+    if not Entities.OS_PATH.isdir(test_directory):
+        result = False
+
+    return result

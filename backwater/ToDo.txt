@@ -7,11 +7,7 @@ ToDo:
 
     Make the progress bar generator.
     Add all the component checks.
-    Expand Session.check_config_items
     Add errors to generic_file_remove.
-    Test config file subroutine logic.
-    Make sure it works.
-    Move "selected_session": "Default" in config file to session setup.
     Implement verbose reporting.
 
 Done:
@@ -37,3 +33,4 @@ Done:
     Count errors and no action taken.
     Change delete_obsolete to mirror.
     Abstracted Backup, Compare, and Sychronize into Subroutines.
+    Check source and target paths on run.
