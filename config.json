@@ -10,19 +10,12 @@
       "exclude_directories": [],
       "exclude_files": [],
       "implement_excludes": true,
-      "mirror": true,
       "run_queue": false,
       "source": "",
-      "subroutine": {
-        "Backup": false,
-        "Backupp": false,
-        "Compare": true,
-        "Synchronize": false,
-        "Template": false
-      },
+      "subroutine": "Compare",
       "target": ""
     },
-    "Test": {
+    "Mr Go Test": {
       "exclude_directories": [
         ".git"
       ],
@@ -30,14 +23,9 @@
         ".class"
       ],
       "implement_excludes": true,
-      "mirror": true,
       "run_queue": false,
       "source": "C:\\Users\\greg9\\Documents\\Python\\Test",
-      "subroutine": {
-        "Backup": true,
-        "Compare": false,
-        "Template": false
-      },
+      "subroutine": "Synchronize",
       "target": "C:\\Users\\greg9\\Documents\\Python\\Test Destination"
     }
   },
@@ -60,5 +48,5 @@
     "fr": "Fran\u00e7ais",
     "nl": "Nederlands"
   },
-  "selected_session": "Test"
+  "selected_session": "Mr Go Test"
 }

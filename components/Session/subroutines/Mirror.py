@@ -1,11 +1,11 @@
 """
-The Backup subroutine.
+The Mirror subroutine.
 """
 
 import Entities
 from components.Session.Model_Base import Subroutine_Base as SB
 
-SUBROUTINE_NAME = "Backup"
+SUBROUTINE_NAME = "Mirror"
 SCRIPT_NAME = f"B3.{__name__}"
 SCRIPT_REV = 20240401
 
@@ -21,7 +21,7 @@ class Controller(SB):
         A = self.SOURCE_PATH
         B = self.TARGET_PATH
 
-        self.STATUS = f"{_("Backup Directories")}"
+        self.STATUS = f"{_("Mirror Directories")}"
         self.align = True
         self.correlate_directories(A, B)
         self.SOURCE_NEW_DIRECTORY_COUNT += self.new
@@ -31,7 +31,7 @@ class Controller(SB):
         self.correlate_directories(B, A)
         self.TARGET_NEW_DIRECTORY_COUNT += self.new
 
-        self.STATUS = f"{_("Backup Files")}"
+        self.STATUS = f"{_("Mirror Files")}"
         self.align = True
         self.correlate_files(A, B)
         self.SOURCE_NEW_FILE_COUNT += self.new
@@ -42,6 +42,14 @@ class Controller(SB):
         self.correlate_files(B, A)
         self.TARGET_NEW_FILE_COUNT += self.new
         self.TARGET_NEWER_FILE_COUNT += self.newer
+
+        self.STATUS = f"{_("Remove Obsolete Files")}"
+        self.remove_obsolete_files(A, B)
+        self.TARGET_ORPHAN_FILE_COUNT += self.obsolete
+
+        self.STATUS = f"{_("Remove Obsolete Directories")}"
+        self.remove_obsolete_directories(A, B)
+        self.TARGET_ORPHAN_DIRECTORY_COUNT += self.obsolete
 
         self.STATUS = f"{_("Subroutine Completed")}"
 

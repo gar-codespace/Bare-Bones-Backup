@@ -3,10 +3,9 @@ The Compare subroutine.
 """
 
 import Entities
-from components.Session import Model_Entities
 from components.Session.Model_Base import Subroutine_Base as SB
 
-SUBROUTINE_NAME = "Backup"
+SUBROUTINE_NAME = "Compare"
 SCRIPT_NAME = f"B3.{__name__}"
 SCRIPT_REV = 20240401
 
@@ -17,38 +16,30 @@ class Controller(SB):
 
         start_time = Entities.TIME.time()
 
-        self.initialize()
-
-        self.mirror = False
-        self.compare = True
-        
-        self.STATUS = f"{_("Validate Directories")}"
-        Model_Entities.validate_directories()
-
-        self.STATUS = f"{_("Poll Source")}"
-        SB.poll_source(self)
-
-        self.STATUS = f"{_("Add Target Root")}"
-        SB.add_target_root(self)
+        self.boiler_plate()
         
         A = self.SOURCE_PATH
         B = self.TARGET_PATH
 
         self.STATUS = f"{_("Compare Directories")}"
-        self.align_directories(A, B)
+        self.align = False
+        self.correlate_directories(A, B)
         self.SOURCE_NEW_DIRECTORY_COUNT += self.new
         self.EXCLUDED_DIRECTORY_COUNT += self.excluded
         self.MATCHED_DIRECTORY_COUNT += self.aligned
-        self.align_directories(B, A)
+        self.align = False
+        self.correlate_directories(B, A)
         self.TARGET_NEW_DIRECTORY_COUNT += self.new
 
         self.STATUS = f"{_("Compare Files")}"
-        self.align_files(A, B)
+        self.align = False
+        self.correlate_files(A, B)
         self.SOURCE_NEW_FILE_COUNT += self.new
         self.EXCLUDED_FILE_COUNT += self.excluded
         self.MATCHED_FILE_COUNT += self.aligned
         self.SOURCE_NEWER_FILE_COUNT += self.newer
-        self.align_files(B, A)
+        self.align = False
+        self.correlate_files(B, A)
         self.TARGET_NEW_FILE_COUNT += self.new
         self.TARGET_NEWER_FILE_COUNT += self.newer
 
@@ -60,7 +51,7 @@ class Controller(SB):
         self.RESULTS["run_time"] = Entities.convert_time(run_time)
         self.RESULTS["run_date"] = Entities.get_date()
     
-    def get_subroutine_results(self) -> list:
+    def get_subroutine_results(self) -> dict:
 
         return self.RESULTS
     

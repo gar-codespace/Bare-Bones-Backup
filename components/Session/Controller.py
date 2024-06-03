@@ -33,6 +33,8 @@ class GUI:
         Bypass Model, go straight to the subroutine.
         """
 
+        # TODO Save provile on run toggle.
+
         try:
             subroutine_name = Model_Entities.get_subroutine_name()
             subroutine = Entities.IM(
@@ -55,23 +57,17 @@ class GUI:
         View.append_results(formatted_results)
         View.append_exceptions(exceptions)
 
-    def get_profile(profile: str) -> None:
+    def get_session() -> None:
         """
-        When the user selects one of the profiles from the dropdown.
+        When the user selects one of the sessions from the dropdown.
         """
 
-        config_file = Entities.load_json(Entities.generic_read_report("config.json"))
-        config_file.update({"selected_session": profile})
-        Entities.generic_write_report("config.json", Entities.dump_json(config_file))
-
-        View.populate_gui()
-
-    def save_profile() -> None:
+    def save_session() -> None:
         """
         When the user presses the 'Save' button.
         """
 
-    def delete_profile(profile: str) -> None:
+    def delete_session(profile: str) -> None:
         """
         When the user presses the 'Delete' button.
         'Delete' changes to 'Confirm' to confirm delete.

@@ -12,6 +12,7 @@ ToDo:
     Test config file subroutine logic.
     Make sure it works.
     Move "selected_session": "Default" in config file to session setup.
+    Implement verbose reporting.
 
 Done:
     MIT License

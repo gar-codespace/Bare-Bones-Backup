@@ -36,9 +36,9 @@ def populate_gui(self) -> None:
     p9 = config_file["profiles"][h2]["target"]
 
 
-def get_profile(self) -> dict:
+def get_session(self) -> dict:
     """
-    Returns items from the currently displayed profile.
+    Returns items from the currently displayed session.
     """
 
     # Pull these from the GUI.

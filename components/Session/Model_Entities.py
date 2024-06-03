@@ -7,6 +7,27 @@ SCRIPT_REV = 20240401
 """check_config_items is moved here because Model is getting big."""
 
 
+# def get_subroutine_int() -> int:
+#     """
+#     Convert the matrix of subroutine bools into an integer.
+#     """
+
+#     subroutine_str = ""
+#     subroutine_int: int
+
+#     config_file = Entities.load_json(Entities.generic_read_report("config.json"))
+#     profile = config_file["selected_session"]
+#     subroutines = config_file["Session"][profile]["subroutine"]
+
+#     for k, v in subroutines.items():
+#         subroutine_str += str(int(v))
+
+#     # subroutine_matrix = [int(v) for k, v in subroutines.items()]
+#     subroutine_int = int(subroutine_str, 2)
+
+#     return subroutine_int
+
+
 def tally_items(path: str) -> int:
     """
     Counts the number of directories and files in a path.
@@ -95,7 +116,7 @@ def directory_remove(target_path: str) -> str:
 
 def get_target_path() -> str:
 
-    profile = get_profile()
+    profile = get_session()
 
     target = profile["target"]
     root = Entities.OS_PATH.basename(Entities.OS_PATH.normpath(profile["source"]))
@@ -159,24 +180,23 @@ def compile_exclude_files(exclude_files: list) -> object:
     return Entities.RE.compile(r"|".join(corrected))
 
 
-def get_profile() -> dict:
+def get_session() -> dict:
     """
-    Returns the data for the selected profile.
+    Returns the data for the selected session.
     """
 
     config_file = Entities.load_json(Entities.generic_read_report("config.json"))
     selected_session = config_file["selected_session"]
-    current_profile = config_file["Session"][selected_session]
+    session = config_file["Session"][selected_session]
 
-    return current_profile
+    return session
 
 
 def get_subroutine_name() -> str:
 
-    profile = get_profile()
-    for key, value in profile["subroutine"].items():
-        if value:
-            return key
+    session = get_session()
+
+    return session["subroutine"]
 
 
 def get_selected_session_name() -> str:

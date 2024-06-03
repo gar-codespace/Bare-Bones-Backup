@@ -17,7 +17,7 @@ def run_diagnostic() -> None:
     """
 
     _check_config_items()
-    _check_subroutines()
+    # _check_subroutines()
 
 
 def _check_config_items() -> None:

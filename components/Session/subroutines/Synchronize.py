@@ -1,11 +1,11 @@
 """
-The Backup subroutine.
+The Synchronize subroutine.
 """
 
 import Entities
 from components.Session.Model_Base import Subroutine_Base as SB
 
-SUBROUTINE_NAME = "Backup"
+SUBROUTINE_NAME = "Synchronize"
 SCRIPT_NAME = f"B3.{__name__}"
 SCRIPT_REV = 20240401
 
@@ -21,24 +21,24 @@ class Controller(SB):
         A = self.SOURCE_PATH
         B = self.TARGET_PATH
 
-        self.STATUS = f"{_("Backup Directories")}"
+        self.STATUS = f"{_("Synchronize Directories")}"
         self.align = True
         self.correlate_directories(A, B)
         self.SOURCE_NEW_DIRECTORY_COUNT += self.new
         self.EXCLUDED_DIRECTORY_COUNT += self.excluded
         self.MATCHED_DIRECTORY_COUNT += self.aligned
-        self.align = False
+        self.align = True
         self.correlate_directories(B, A)
         self.TARGET_NEW_DIRECTORY_COUNT += self.new
 
-        self.STATUS = f"{_("Backup Files")}"
+        self.STATUS = f"{_("Synchronize Files")}"
         self.align = True
         self.correlate_files(A, B)
         self.SOURCE_NEW_FILE_COUNT += self.new
         self.EXCLUDED_FILE_COUNT += self.excluded
         self.MATCHED_FILE_COUNT += self.aligned
         self.SOURCE_NEWER_FILE_COUNT += self.newer
-        self.align = False
+        self.align = True
         self.correlate_files(B, A)
         self.TARGET_NEW_FILE_COUNT += self.new
         self.TARGET_NEWER_FILE_COUNT += self.newer
@@ -58,7 +58,7 @@ class Controller(SB):
     def get_exceptions(self) -> list:
 
         return self.EXCEPTIONS
-
+    
 
 class View:
 
@@ -69,6 +69,7 @@ class View:
         """
         Apply i18n and formatting to the result from Backup.
         """
+
 
         formatted = []
 
@@ -83,19 +84,15 @@ class View:
         formatted.append(f"{_("Matched Directory Count")}: {results["matched_directory_count"]}")
         formatted.append(f"{_("Source New Directory Count")}: {results["new_source_directory_count"]}")
         formatted.append(f"{_("Target New Directory Count")}: {results["new_target_directory_count"]}")
-        formatted.append(f"{_("Target Orphan Directory Count")}: {results["obsolete_target_directory_count"]}")
         formatted.append("")
         formatted.append(f"{_("Excluded File Count")}: {results["excluded_file_count"]}")
         formatted.append(f"{_("Matched File Count")}: {results["matched_file_count"]}")
         formatted.append("")
         formatted.append(f"{_("Source New File Count")}: {results["new_source_file_count"]}")
         formatted.append(f"{_("Source Newer File Count")}: {results["newer_source_file_count"]}")
-        formatted.append(f"{_("Source Updated File Count")}: {results["updated_source_file_count"]}")
         formatted.append("")
         formatted.append(f"{_("Target New File Count")}: {results["new_target_file_count"]}")
         formatted.append(f"{_("Target Newer File Count")}: {results["newer_target_file_count"]}")
-        formatted.append(f"{_("Target Updated File Count")}: {results["updated_target_file_count"]}")
-        formatted.append(f"{_("Target Orphan File Count")}: {results["target_orphan_file_count"]}")
         formatted.append("")
         formatted.append(f"{_("Run Date")}: {results["run_date"]}")
         formatted.append(f"{_("Run Duration")}: {results["run_time"]}")

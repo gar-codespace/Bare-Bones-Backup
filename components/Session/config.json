@@ -1,10 +1,9 @@
 {
     "Default": {
-        "mirror": true,
         "exclude_directories": [],
         "exclude_files": [],
         "implement_excludes": true,
-        "subroutine": {},
+        "subroutine": "Compare",
         "run_queue": false,
         "source": "",
         "target": ""
