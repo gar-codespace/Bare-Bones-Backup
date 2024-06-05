@@ -36,7 +36,7 @@ class Controller(SB):
         self.correlate_files(A, B)
         self.SOURCE_NEW_FILE_COUNT += self.new
         self.EXCLUDED_FILE_COUNT += self.excluded
-        self.MATCHED_FILE_COUNT += self.aligned
+        self.MATCHED_FILE_COUNT += self.matched
         self.SOURCE_NEWER_FILE_COUNT += self.newer
         self.align = True
         self.correlate_files(B, A)

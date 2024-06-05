@@ -33,7 +33,7 @@ class GUI:
     def run_component(self) -> None:
         """
         When the 'Run Session' button is pressed.
-        Go straight to the subroutine.
+        Directly call the subroutine.
         """
 
         self.save_session()

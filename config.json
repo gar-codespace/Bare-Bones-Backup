@@ -27,6 +27,32 @@
       "source": "C:\\Users\\greg9\\Documents\\Python\\Test",
       "subroutine": "Synchronize",
       "target": "C:\\Users\\greg9\\Documents\\Python\\Test Destination"
+    },
+    "MrPP.TP.Layouts": {
+      "exclude_directories": [
+        ".git"
+      ],
+      "exclude_files": [
+        ".class"
+      ],
+      "implement_excludes": true,
+      "run_queue": false,
+      "source": "C:\\Users\\Greg\\AppData\\Roaming\\TrainPlayer\\Layouts",
+      "subroutine": "Mirror",
+      "target": "E:\\B3 Test\\TP.Layouts"
+    },
+    "MrPP.TP.QK": {
+      "exclude_directories": [
+        ".git"
+      ],
+      "exclude_files": [
+        ".class"
+      ],
+      "implement_excludes": true,
+      "run_queue": false,
+      "source": "C:\\Users\\Greg\\AppData\\Roaming\\TrainPlayer\\Subroutines\\QuickKeys",
+      "subroutine": "Mirror",
+      "target": "E:\\B3 Test\\TP.QuickKeys"
     }
   },
   "Settings": {
@@ -48,5 +74,5 @@
     "fr": "Fran\u00e7ais",
     "nl": "Nederlands"
   },
-  "selected_session": "Mr Go Test"
+  "selected_session": "MrPP.TP.QK"
 }

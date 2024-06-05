@@ -18,7 +18,7 @@ class Session_GUI:
 
 def populate_gui(self) -> None:
     """
-    Populate the GUI profile widgets with the currently selected profile data.
+    Populate the GUI profile widgets with the currently selected session data.
     """
 
     config_file = Entities.load_json(Entities.generic_read_report("config.json"))
@@ -80,7 +80,6 @@ def append_results(formatted_results: list) -> None:
 
 def append_exceptions(formatted_exceptions: list) -> None:
 
-    # Entities.EXCEPTIONS.prepend(f"{_("Session Exceptions")}:")
 
     Entities.EXCEPTIONS.insert(0, f"{_("Session Exceptions")}:")
 

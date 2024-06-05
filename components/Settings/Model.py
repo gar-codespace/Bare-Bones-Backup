@@ -10,10 +10,10 @@ def run_diagnostic() -> None:
     Whatever tests are necessary to check this component.
     """
 
-    check_config_items()
+    _check_config_items()
 
 
-def check_config_items() -> None:
+def _check_config_items() -> None:
     """
     Check that the config file items for this component are OK.
     """

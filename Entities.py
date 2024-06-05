@@ -30,25 +30,20 @@ RESULTS: list
 EXCEPTIONS: list
 
 
-"""Methods specific to this app."""
+"""i18n functions"""
 
 
-def make_new_config_file() -> None:
-    """
-    Creates a new default config file.
-    """
+def set_locale() -> None:
 
-    new_config_file = {}
-    # new_config_file.update({"description": f"B3 version {SCRIPT_REV}"})
-    new_config_file.update({"selected_session": "Default"})
-    new_config_file.update({"languages": {}})
+    config_file = load_json(generic_read_report("config.json"))
+    selected_language = config_file["Settings"]["selected_language"]
 
-    generic_write_report("config.json", dump_json(new_config_file))
+    LOCALE.setlocale(LOCALE.LC_ALL, selected_language)
 
-    check_languages()
-
-    for directory in generic_get_dirs("components"):
-        IM(f"components.{directory}.Model").run_diagnostic()
+    i18n = GETTEXT.translation(
+        APP_NAME, LOCALE_DIRECTORY, fallback=True, languages=[selected_language]
+    )
+    i18n.install()
 
 
 def check_languages() -> None:
@@ -75,12 +70,38 @@ def check_languages() -> None:
     generic_write_report("config.json", dump_json(config_file))
 
 
-def get_component_name(file_name: str) -> str:
+def get_date() -> str:
     """
-    The prefered method to get a components' name.
+    Returns an internationalized date string.
     """
 
-    return OS_PATH.basename(OS_PATH.dirname(file_name))
+    return DATE_TIME.datetime.today().strftime("%a, %x %X")
+
+
+def convert_time(timed_event: float) -> object:
+
+    return DATE_TIME.timedelta(seconds=timed_event)
+
+
+"""Methods specific to this app."""
+
+
+def make_new_config_file() -> None:
+    """
+    Creates a new default config file.
+    """
+
+    new_config_file = {}
+    # new_config_file.update({"description": f"B3 version {SCRIPT_REV}"})
+    new_config_file.update({"selected_session": "Default"})
+    new_config_file.update({"languages": {}})
+
+    generic_write_report("config.json", dump_json(new_config_file))
+
+    check_languages()
+
+    for directory in generic_get_dirs("components"):
+        IM(f"components.{directory}.Model").run_diagnostic()
 
 
 def check_config_item(component_name: str) -> None:
@@ -107,30 +128,12 @@ def check_config_item(component_name: str) -> None:
         generic_write_report("config.json", dump_json(config_file))
 
 
-def set_locale() -> None:
-
-    config_file = load_json(generic_read_report("config.json"))
-    selected_language = config_file["Settings"]["selected_language"]
-
-    LOCALE.setlocale(LOCALE.LC_ALL, selected_language)
-
-    i18n = GETTEXT.translation(
-        APP_NAME, LOCALE_DIRECTORY, fallback=True, languages=[selected_language]
-    )
-    i18n.install()
-
-
-def get_date() -> str:
+def get_component_name(file_name: str) -> str:
     """
-    Returns an internationalized date string.
+    The prefered method to get a components' name.
     """
 
-    return DATE_TIME.datetime.today().strftime("%a, %x %X")
-
-
-def convert_time(timed_event: float) -> object:
-
-    return DATE_TIME.timedelta(seconds=timed_event)
+    return OS_PATH.basename(OS_PATH.dirname(file_name))
 
 
 """Generic file handeling methods."""
