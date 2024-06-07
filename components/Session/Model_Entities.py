@@ -27,13 +27,13 @@ def make_directory(target_path: str) -> int:
     The prefered mathod to make a directory.
     """
 
-    result = 1
+    result = None
     try:
         Entities.OS.mkdir(target_path, mode=0o777, dir_fd=None)
     except FileNotFoundError as e:
-        result = 0
+        result = f"Directory not created: {e}"
     except FileExistsError as e:
-        result = 0
+        result = f"Directory not created: {e}"
 
     return result
 
@@ -43,33 +43,30 @@ def copy_file(source_path: str, target_path: str) -> int:
     The prefered method to copy files.
     """
 
-    result = 1
+    result = None
     Entities.SHUTIL.copy2(source_path, target_path, follow_symlinks=True)
 
     a_date = Entities.OS_PATH.getmtime(source_path)
     b_date = Entities.OS_PATH.getmtime(target_path)
 
     if a_date != b_date:
-        result = 0
+        result = f"Not copied: {source_path}"
 
     return result
 
 
-def file_remove(target_path: str) -> int:
+def file_remove(target_path: str) -> str:
     """
     The prefered method to remove a file.
     """
 
-    result = 1
+    result = None
     try:
         Entities.PATHLIB.Path(target_path).unlink()
     except FileNotFoundError as e:
-        # TODO add to errors list.
-        result = 0
+        result = f"File not removed: {e}"
     except PermissionError as e:
-        # TODO add to errors list
-        # Source files marked as read only.
-        result = 0
+        result = f"File not removed: {e}"
 
     return result
 
@@ -80,17 +77,14 @@ def directory_remove(target_path: str) -> str:
     Only removes empty directories.
     """
 
-    error = ""
-    result = 1
+    result = None
 
     try:
         Entities.OS.rmdir(target_path, dir_fd=None)
     except FileNotFoundError as e:
-        error = f"Directory not removed: {e}"
-        result = 0
+        result = f"Directory not removed: {e}"
     except OSError as e:
-        error = f"Directory not removed: {e}"
-        result = 0
+        result = f"Directory not removed: {e}"
 
     return result
 

@@ -55,13 +55,19 @@ class Controller(SB):
 
         return self.RESULTS
     
-    def get_exceptions(self) -> list:
+    def get_subroutine_exceptions(self) -> list:
 
         return self.EXCEPTIONS
     
+    def get_subroutine_verbose(self) -> list:
 
+        return self.VERBOSE
+    
+    
 class View:
 
+    formatted = []
+    
     def __init__(self) -> None:
         pass
 
@@ -70,31 +76,35 @@ class View:
         Apply i18n and formatting to the result from Backup.
         """
 
+        self.formatted.append(f"{_("Profile")}: {results["profile"]}")
+        self.formatted.append(f"{_("Subroutine")}: {results["subroutine"]}")
+        self.formatted.append(f"{_("Source Directory")}: {results["source_directory"]}")
+        self.formatted.append(f"{_("Target Directory")}: {results["target_directory"]}")
+        self.formatted.append(f"{_("Source Directory Count")}: {results["source_directory_count"]}")
+        self.formatted.append(f"{_("Source File Count")}: {results["source_file_count"]}")
+        self.formatted.append("")
+        self.formatted.append(f"{_("Excluded Directory Count")}: {results["excluded_directory_count"]}")
+        self.formatted.append(f"{_("Matched Directory Count")}: {results["matched_directory_count"]}")
+        self.formatted.append(f"{_("Source New Directory Count")}: {results["new_source_directory_count"]}")
+        self.formatted.append(f"{_("Target New Directory Count")}: {results["new_target_directory_count"]}")
+        self.formatted.append("")
+        self.formatted.append(f"{_("Excluded File Count")}: {results["excluded_file_count"]}")
+        self.formatted.append(f"{_("Matched File Count")}: {results["matched_file_count"]}")
+        self.formatted.append("")
+        self.formatted.append(f"{_("Source New File Count")}: {results["new_source_file_count"]}")
+        self.formatted.append(f"{_("Source Newer File Count")}: {results["newer_source_file_count"]}")
+        self.formatted.append("")
+        self.formatted.append(f"{_("Target New File Count")}: {results["new_target_file_count"]}")
+        self.formatted.append(f"{_("Target Newer File Count")}: {results["newer_target_file_count"]}")
+        self.formatted.append("")
+        self.formatted.append(f"{_("Run Date")}: {results["run_date"]}")
+        self.formatted.append(f"{_("Run Duration")}: {results["run_time"]}")
 
-        formatted = []
+        return self.formatted
 
-        formatted.append(f"{_("Profile")}: {results["profile"]}")
-        formatted.append(f"{_("Subroutine")}: {results["subroutine"]}")
-        formatted.append(f"{_("Source Directory")}: {results["source_directory"]}")
-        formatted.append(f"{_("Target Directory")}: {results["target_directory"]}")
-        formatted.append(f"{_("Source Directory Count")}: {results["source_directory_count"]}")
-        formatted.append(f"{_("Source File Count")}: {results["source_file_count"]}")
-        formatted.append("")
-        formatted.append(f"{_("Excluded Directory Count")}: {results["excluded_directory_count"]}")
-        formatted.append(f"{_("Matched Directory Count")}: {results["matched_directory_count"]}")
-        formatted.append(f"{_("Source New Directory Count")}: {results["new_source_directory_count"]}")
-        formatted.append(f"{_("Target New Directory Count")}: {results["new_target_directory_count"]}")
-        formatted.append("")
-        formatted.append(f"{_("Excluded File Count")}: {results["excluded_file_count"]}")
-        formatted.append(f"{_("Matched File Count")}: {results["matched_file_count"]}")
-        formatted.append("")
-        formatted.append(f"{_("Source New File Count")}: {results["new_source_file_count"]}")
-        formatted.append(f"{_("Source Newer File Count")}: {results["newer_source_file_count"]}")
-        formatted.append("")
-        formatted.append(f"{_("Target New File Count")}: {results["new_target_file_count"]}")
-        formatted.append(f"{_("Target Newer File Count")}: {results["newer_target_file_count"]}")
-        formatted.append("")
-        formatted.append(f"{_("Run Date")}: {results["run_date"]}")
-        formatted.append(f"{_("Run Duration")}: {results["run_time"]}")
+    def append_verbose(self, verbose:list) -> list:
 
-        return formatted
+        for item in verbose:
+            self.formatted.append(item)
+
+        return self.formatted

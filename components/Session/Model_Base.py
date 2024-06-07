@@ -47,6 +47,7 @@ class Subroutine_Base:
 
     RESULTS: dict
     EXCEPTIONS: list
+    VERBOSE: list
 
     # Toggles
     align: bool
@@ -80,6 +81,7 @@ class Subroutine_Base:
     def initialize(self) -> None:
 
         self.EXCEPTIONS = []
+        self.VERBOSE = []
 
         self.implement_excludes = self.PROFILE["implement_excludes"]
         exd = self.PROFILE["exclude_directories"]
@@ -103,10 +105,10 @@ class Subroutine_Base:
         """
 
         result = Model_Entities.make_directory(self.TARGET_PATH)
-        if result == True:
+        if result == None:
             self.TARGET_NEW_DIRECTORY_COUNT += 1
         else:
-            self.EXCEPTIONS.append(f"Target exists: {self.TARGET_PATH}")
+            self.EXCEPTIONS.append(result)
             pass
 
     def correlate_directories(self, A, B) -> None:
@@ -120,6 +122,7 @@ class Subroutine_Base:
                 a_path = Entities.OS_PATH.join(root, directory)
 
                 if self._exclude_directories(a_path):
+                    self.VERBOSE.append(f"Excluded: {a_path}")
                     continue
 
                 rel_path = Entities.OS_PATH.relpath(a_path, A)
@@ -133,10 +136,10 @@ class Subroutine_Base:
                 if self.align == False:
                     continue
 
-                success = Model_Entities.make_directory(b_path)
-                if success == False:
-                    x_rel = Entities.OS_PATH.relpath(a_path, A)
-                    self.EXCEPTIONS.append(f"Not copied: {x_rel}")
+                self.VERBOSE.append(f"New: {b_path}")
+                result = Model_Entities.make_directory(b_path)
+                if result:
+                    self.EXCEPTIONS.append(result)
 
     def _exclude_directories(self, path) -> bool:
 
@@ -164,6 +167,7 @@ class Subroutine_Base:
             for file in files:
 
                 if self._exclude_files(file):
+                    self.VERBOSE.append(f"Excluded: {file}")
                     continue
 
                 a_file_path = Entities.OS_PATH.join(root, file)
@@ -185,9 +189,11 @@ class Subroutine_Base:
                     continue
 
                 if b_date == 0.0:
+                    self.VERBOSE.append(f"New: {a_file_path}")
                     self.new += 1
 
                 if a_date > b_date and b_date != 0.0:
+                    self.VERBOSE.append(f"Newer: {a_file_path}")
                     self.newer += 1
 
                 if a_date < b_date and self.align == True:
@@ -196,10 +202,9 @@ class Subroutine_Base:
                 if self.align == False:
                     continue
 
-                success = Model_Entities.copy_file(a_file_path, b_file_path)
-                if success == False:
-                    x_rel = Entities.OS_PATH.relpath(a_file_path, A)
-                    self.EXCEPTIONS.append(f"Not copied: {x_rel}")
+                result = Model_Entities.copy_file(a_file_path, b_file_path)
+                if result:
+                    self.EXCEPTIONS.append(result)
 
     def _exclude_files(self, file) -> bool:
 
@@ -247,10 +252,10 @@ class Subroutine_Base:
                     continue
 
                 self.obsolete += 1
-                success = Model_Entities.file_remove(b_file_path)
-                if not success:
-                    x_rel = Entities.OS_PATH.relpath(b_file_path, B)
-                    self.EXCEPTIONS.append(f"Not removed: {x_rel}")
+                self.VERBOSE.append(f"Obsolete: {b_file_path}")
+                result = Model_Entities.file_remove(b_file_path)
+                if result:
+                    self.EXCEPTIONS.append(result)
 
     def remove_obsolete_directories(self, A, B):
         """
@@ -283,10 +288,10 @@ class Subroutine_Base:
                     continue
 
                 self.obsolete += 1
-                success = Model_Entities.directory_remove(b_path)
-                if not success:
-                    x_rel = Entities.OS_PATH.relpath(b_path, B)
-                    self.EXCEPTIONS.append(f"Not removed: {x_rel}")
+                self.VERBOSE.append(f"Obsolete: {b_path}")
+                result = Model_Entities.directory_remove(b_path)
+                if result:
+                    self.EXCEPTIONS.append(result)
 
 
     def get_run_results(self) -> dict:

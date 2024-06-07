@@ -25,7 +25,6 @@ def _check_config_items() -> None:
     """
     Check the config file items for this component.
     """
-    # TODO Expand this
 
     component_name = Entities.get_component_name(__file__)
     Entities.check_config_item(component_name)

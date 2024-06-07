@@ -4,10 +4,8 @@ ToDo:
     For the GUI add timer to automatically run Backup.
     The third-party regex module, which has an API compatible with the standard library re module, but offers additional functionality and a more thorough Unicode support.
     https://pypi.org/project/regex/
-
+    
     Make the progress bar generator.
-    Add all the component checks.
-    Add errors to generic_file_remove.
     Implement verbose reporting.
 
 Done:

@@ -18,8 +18,6 @@ class GUI:
     def __init__(self) -> None:
 
         self.component_frame: object
-        self.formatted_results: list = []
-        self.exceptions: list = []
 
     def make_component(self) -> None:
         """
@@ -58,13 +56,21 @@ class GUI:
 
             subroutine_controller.run()
             subroutine_results = subroutine_controller.get_subroutine_results()
-            self.formatted_results = subroutine_view.formatted_results(
-                subroutine_results
-            )
-            self.exceptions = subroutine_controller.get_exceptions()
+            subroutine_verbose = subroutine_controller.get_subroutine_verbose()
+            subroutine_exceptions = subroutine_controller.get_subroutine_exceptions()
 
-        View.append_results(self.formatted_results)
-        View.append_exceptions(self.exceptions)
+            results = subroutine_view.formatted_results(subroutine_results)
+
+            config_file = Entities.load_json(
+                Entities.generic_read_report("config.json")
+            )
+            report_verbose = config_file["Settings"]["report_verbose"]
+
+            if report_verbose == True:
+                results = subroutine_view.append_verbose(subroutine_verbose)
+
+        View.append_results(results)
+        View.append_exceptions(subroutine_exceptions)
 
     def get_session(self) -> None:
         """
