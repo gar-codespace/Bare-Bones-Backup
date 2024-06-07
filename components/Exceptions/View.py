@@ -8,12 +8,16 @@ SCRIPT_REV = 20240401
 
 
 class Get_GUI:
+    """
+    Makes the Exceptions GUI.
+    """
+
     def __init__(self) -> None:
         pass
 
     def populate_gui(settings: dict) -> None:
         """
-        Populate the GUI errors widgets with the errors data.
+        Populate the GUI exceptions widgets with the exceptions data.
         """
         pass
 

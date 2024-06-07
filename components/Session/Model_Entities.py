@@ -4,9 +4,6 @@ SCRIPT_NAME = f"B3.{__name__}"
 SCRIPT_REV = 20240401
 
 
-"""check_config_items is moved here because Model is getting big."""
-
-
 def tally_items(path: str) -> int:
     """
     Counts the number of directories and files in a path.

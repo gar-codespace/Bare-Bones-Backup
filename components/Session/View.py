@@ -7,7 +7,7 @@ SCRIPT_NAME = f"B3.{__name__}"
 SCRIPT_REV = 20240401
 
 
-class Session_GUI:
+class Get_GUI:
     """
     Makes the Session GUI.
     """
@@ -16,58 +16,22 @@ class Session_GUI:
         pass
 
 
-def populate_gui(self) -> None:
-    """
-    Populate the GUI profile widgets with the currently selected session data.
-    """
+    def populate_gui(self) -> None:
+        """
+        Populate the GUI profile widgets with the currently selected session data.
+        """
 
-    config_file = Entities.load_json(Entities.generic_read_report("config.json"))
-    h2 = config_file["selected_session"]
+        config_file = Entities.load_json(Entities.generic_read_report("config.json"))
+        h2 = config_file["selected_session"]
 
-    # Profile details
-    p1 = config_file["profiles"][h2]["mirror"]
-    p2 = ", ".join(config_file["profiles"][h2]["exclude_directories"])
-    p3 = ", ".join(config_file["profiles"][h2]["exclude_files"])
-    p4 = config_file["profiles"][h2]["implement_excludes"]
-    p5 = config_file["profiles"][h2]["modified"]  # How to set a radio button?
-    p6 = config_file["profiles"][h2]["run_queue"]
-    p7 = config_file["profiles"][h2]["source"]
-    p8 = config_file["profiles"][h2]["subroutine"]
-    p9 = config_file["profiles"][h2]["target"]
-
-
-def get_session(self) -> dict:
-    """
-    Returns items from the currently displayed session.
-    """
-
-    # Pull these from the GUI.
-    profile_name = "Test"
-    mirror = True
-    exclude_directories = ".git, __pycache__,junk"
-    exclude_files = ".class"
-    implement_excludes = True
-    modified = {"different": True, "newer": False, "older": False}
-    run_queue = False
-    source = "C:\\Users\\greg9\\Documents\\Python\\Test Source\\Layouts"
-    subroutine = "Backup"
-    target = "C:\\Users\\greg9\\Documents\\Python\\Test Destination"
-
-    profile = {
-        profile_name: {
-            "mirror": mirror,
-            "exclude_directories": exclude_directories,
-            "exclude_files": exclude_files,
-            "implement_excludes": implement_excludes,
-            "modified": modified,
-            "run_queue": run_queue,
-            "source": source,
-            "subroutine": subroutine,
-            "target": target,
-        }
-    }
-
-    return profile
+        # Profile details
+        p1 = ", ".join(config_file["profiles"][h2]["exclude_directories"])
+        p2 = ", ".join(config_file["profiles"][h2]["exclude_files"])
+        p3 = config_file["profiles"][h2]["implement_excludes"]
+        p4 = config_file["profiles"][h2]["subroutine"] # How to set a radio button?
+        p5 = config_file["profiles"][h2]["run_queue"]
+        p6 = config_file["profiles"][h2]["source"]
+        p7 = config_file["profiles"][h2]["target"]
 
 
 def append_results(formatted_results: list) -> None:

@@ -8,6 +8,10 @@ SCRIPT_REV = 20240401
 
 
 class Get_GUI:
+    """
+    Makes the Results GUI.
+    """
+
     def __init__(self) -> None:
         pass
 

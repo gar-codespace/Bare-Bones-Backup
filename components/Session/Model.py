@@ -1,7 +1,3 @@
-"""
-All in one, Model applies either Backup, Compare, or Synchronize.
-"""
-
 import Entities
 
 # from components.Session import Model_Entities

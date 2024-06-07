@@ -3,10 +3,10 @@ ToDo:
     For the GUI add ability to delete a profile.
     For the GUI add timer to automatically run Backup.
     The third-party regex module, which has an API compatible with the standard library re module, but offers additional functionality and a more thorough Unicode support.
-    https://pypi.org/project/regex/
-    
+    https://pypi.org/project/regex/    
     Make the progress bar generator.
-    Implement verbose reporting.
+
+    Add version control.
 
 Done:
     MIT License
@@ -32,3 +32,4 @@ Done:
     Change delete_obsolete to mirror.
     Abstracted Backup, Compare, and Sychronize into Subroutines.
     Check source and target paths on run.
+    Implement verbose reporting.

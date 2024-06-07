@@ -1,5 +1,5 @@
 """
-All the GUI and report formatting for this subroutine go here.
+All the GUI and report formatting for this components go here.
 """
 
 import Entities

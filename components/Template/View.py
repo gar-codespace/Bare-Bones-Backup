@@ -8,6 +8,10 @@ SCRIPT_REV = 20240401
 
 
 class Get_GUI:
+    """
+    Makes the GUI for this component.
+    """
+
     def __init__(self) -> None:
         pass
 
@@ -15,3 +19,4 @@ class Get_GUI:
         """
         Populate the GUI template widgets with the template data.
         """
+        pass
