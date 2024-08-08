@@ -21,7 +21,7 @@ class Controller(SB):
         A = self.SOURCE_PATH
         B = self.TARGET_PATH
 
-        self.STATUS = f"{_("Backup Directories")}"
+        self.STATUS = _("Backup Directories")
         self.align = True
         self.correlate_directories(A, B)
         self.SOURCE_NEW_DIRECTORY_COUNT += self.new
@@ -31,7 +31,7 @@ class Controller(SB):
         self.correlate_directories(B, A)
         self.TARGET_NEW_DIRECTORY_COUNT += self.new
 
-        self.STATUS = f"{_("Backup Files")}"
+        self.STATUS = _("Backup Files")
         self.align = True
         self.correlate_files(A, B)
         self.SOURCE_NEW_FILE_COUNT += self.new
@@ -43,7 +43,7 @@ class Controller(SB):
         self.TARGET_NEW_FILE_COUNT += self.new
         self.TARGET_NEWER_FILE_COUNT += self.newer
 
-        self.STATUS = f"{_("Subroutine Completed")}"
+        self.STATUS = _("Subroutine Completed")
 
         run_time = Entities.TIME.time() - start_time
 
