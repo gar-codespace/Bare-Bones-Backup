@@ -28,6 +28,19 @@
       "subroutine": "Synchronize",
       "target": "C:\\Users\\greg9\\Documents\\Python\\Test Destination"
     },
+    "MrPP.Gregs Documents": {
+      "exclude_directories": [
+        ".git"
+      ],
+      "exclude_files": [
+        ".class"
+      ],
+      "implement_excludes": true,
+      "run_queue": false,
+      "source": "E:\\Gregs Documents",
+      "subroutine": "Mirror",
+      "target": "Z:\\Greg\\Mr Picky Pants\\Gregs Documents"
+    },
     "MrPP.TP.Layouts": {
       "exclude_directories": [
         ".git"
@@ -39,7 +52,7 @@
       "run_queue": false,
       "source": "C:\\Users\\Greg\\AppData\\Roaming\\TrainPlayer\\Layouts",
       "subroutine": "Mirror",
-      "target": "E:\\B3 Test\\TP.Layouts"
+      "target": "Z:\\Greg\\Mr Picky Pants\\TrainPlayer\\Layouts"
     },
     "MrPP.TP.QK": {
       "exclude_directories": [
@@ -52,14 +65,14 @@
       "run_queue": false,
       "source": "C:\\Users\\Greg\\AppData\\Roaming\\TrainPlayer\\Subroutines\\QuickKeys",
       "subroutine": "Mirror",
-      "target": "E:\\B3 Test\\TP.QuickKeys"
+      "target": "Z:\\Greg\\Mr Picky Pants\\TrainPlayer\\Subroutines\\QuickKeys"
     }
   },
   "Settings": {
     "description": "Store user input for the Settings frame.",
     "q_run_auto": false,
     "q_run_time": "",
-    "report_verbose": true,
+    "report_verbose": false,
     "save_on_run": true,
     "selected_language": "en"
   },
@@ -74,5 +87,5 @@
     "fr": "Fran\u00e7ais",
     "nl": "Nederlands"
   },
-  "selected_session": "Mr Go Test"
+  "selected_session": "MrPP.Gregs Documents"
 }
